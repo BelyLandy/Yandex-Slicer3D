@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using DynamicMeshCutter;
 
 namespace RootMotion
 {
@@ -121,8 +122,10 @@ namespace RootMotion
 			}
 		}
 
-		// Read the user input
-		public void UpdateInput()
+		[SerializeField] private GameObject _gameObject;        
+
+        // Read the user input
+        public void UpdateInput()
 		{
 			if (!cam.enabled) return;
 
@@ -136,9 +139,17 @@ namespace RootMotion
 			// delta rotation
 			if (rotate)
 			{
+				//_gameObject.GetComponent<LineRenderer>().enabled = false;
+				MouseBehaviour.isAwake = false;
+				_gameObject.SetActive(false);
+
 				x += Input.GetAxis("Mouse X") * rotationSensitivity;
 				y = ClampAngle(y - Input.GetAxis("Mouse Y") * rotationSensitivity, yMinLimit, yMaxLimit);
 			}
+			else
+			{
+                _gameObject.SetActive(true);
+            }	
 
 			// Distance
 			distanceTarget = Mathf.Clamp(distanceTarget + zoomAdd, minDistance, maxDistance);
