@@ -1,6 +1,7 @@
 using Microsoft.Unity.VisualStudio.Editor;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangeMaterialImage : MonoBehaviour
 {
@@ -18,9 +19,10 @@ public class ChangeMaterialImage : MonoBehaviour
         
     }
 
-    public void ChangeMaterialImageMethod()
+    public void ChangeMaterialImageMethod(Button but)
     {
-        _material.SetTexture("_MainTex", m_Fredbear);
+        if (but.name == "NextSkin") _material.SetTexture("_MainTex", m_OptimusGang);
+        else _material.SetTexture("_MainTex", m_Fredbear);
     }
 
     
