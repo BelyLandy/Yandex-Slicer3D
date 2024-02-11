@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DynamicMeshCutter
@@ -54,9 +52,9 @@ namespace DynamicMeshCutter
                 RaycastHit[] hits;
                 hits = Physics.RaycastAll(origin: new Vector3(positions[0].x, positions[0].y, 1), direction: new Vector3(positions[1].x, positions[1].y, 1), maxDistance: Vector3.Distance(positions[0], positions[1]));
 
-                //Debug.Log(hits.Length);
+                Debug.Log(hits.Length);
 
-                //Debug.DrawRay(start: new Vector3(positions[0].x, positions[0].y, 1), dir: new Vector3(positions[0].x, positions[0].y, 1) + new Vector3(positions[1].x, positions[1].y, 1), color: Color.red, duration: 3);
+                Debug.DrawRay(start: new Vector3(positions[0].x, positions[0].y, -10), dir: new Vector3(positions[0].x, positions[0].y, -10) + new Vector3(positions[1].x, positions[1].y, -10), color: Color.red, duration: 3);
 
                 Cut();
 

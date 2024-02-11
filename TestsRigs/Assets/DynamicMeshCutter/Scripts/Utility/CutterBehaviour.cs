@@ -217,7 +217,7 @@ namespace DynamicMeshCutter
                 }
 
                 watch.Stop();
-                Debug.Log($"Synchronus cut creating {amount} meshes took {watch.ElapsedMilliseconds} ms. Success ? {virtualMeshes != null}");
+                //Debug.Log($"Synchronus cut creating {amount} meshes took {watch.ElapsedMilliseconds} ms. Success ? {virtualMeshes != null}");
 
             }
             else

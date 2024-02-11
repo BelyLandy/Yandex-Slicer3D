@@ -115,7 +115,7 @@ namespace DynamicMeshCutter
                         }
                         else
                         {
-                            Debug.LogWarning("Beahviour is set to Animation, but there was no Animator found in parent!");
+                            //Debug.LogWarning("Beahviour is set to Animation, but there was no Animator found in parent!");
                             CreateMesh(ref root, ref parent, target, mesh, vMesh, materials, bt, true);
                         }
                         break;
@@ -173,7 +173,7 @@ namespace DynamicMeshCutter
 
         public static void StartCoroutine(Material[] materials)
         {
-            Debug.Log("Starting...");
+            //Debug.Log("Starting...");
             foreach (var mat in materials)
             {
                 mat.color = Color.red;
@@ -181,11 +181,11 @@ namespace DynamicMeshCutter
             _mb = GameObject.FindObjectOfType<MonoBehaviour>();
             if (_mb != null)
             {
-                Debug.Log("Found a MonoBehaviour.");
+                //Debug.Log("Found a MonoBehaviour.");
                 _mb.StartCoroutine(CoroutineTest(materials));
             }
-            else
-                Debug.Log("No MonoBehaviour object was found in the scene (which should basically be impossible).");
+            //else
+            //    //Debug.Log("No MonoBehaviour object was found in the scene (which should basically be impossible).");
         }
 
         private static IEnumerator CoroutineTest(Material[] materials)
@@ -198,28 +198,7 @@ namespace DynamicMeshCutter
         }
 
         public static void CreateMesh(ref GameObject root, ref Transform parent, MeshTarget target, Mesh mesh, VirtualMesh vMesh, Material[] materials, int bt, bool forcePhysics = false)
-        {
-            
-            //MonoBehaviour monoBehaviour;
-
-            //void MakeRed()
-            //{
-            //    foreach (Material mat in materials)
-            //    {
-            //        mat.color = Color.red;
-            //    }
-            //    monoBehaviour = GameObject.FindObjectOfType<MonoBehaviour>();
-            //    monoBehaviour.Invoke("MakeDefault", 0.2f);
-            //}
-
-            //void MakeDefault()
-            //{
-            //    foreach (Material mat in materials)
-            //    {
-            //        mat.color = Color.white;
-            //    }
-            //}
-
+        {                    
             parent = new GameObject($"{target.GameobjectRoot.name}").transform;
             parent.transform.rotation = target.transform.rotation;
             parent.transform.position = target.transform.position;
