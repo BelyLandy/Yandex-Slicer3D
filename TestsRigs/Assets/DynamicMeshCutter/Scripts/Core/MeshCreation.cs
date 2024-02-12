@@ -3,9 +3,12 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.CompilerServices;
 
 namespace DynamicMeshCutter
 {
+
+
     public class MeshCreationData
     {
         public GameObject[] CreatedObjects;
@@ -17,11 +20,13 @@ namespace DynamicMeshCutter
             CreatedTargets = new MeshTarget[size];
         }
     }
+
+
+
     public static class MeshCreation
     {
-        static float _ragdoll_vertex_threshold = 0.75f;
+        static float _ragdoll_vertex_threshold = 0.75f;     
 
-     
         public static MeshCreationData CreateObjects(Info info, Material defaultMaterial, int vertexCreationThreshold)
         {
             if (info.MeshTarget == null)
@@ -109,7 +114,7 @@ namespace DynamicMeshCutter
                         }
                         else
                         {
-                            Debug.LogWarning("Beahviour is set to Animation, but there was no Animator found in parent!");
+                            //Debug.LogWarning("Beahviour is set to Animation, but there was no Animator found in parent!");
                             CreateMesh(ref root, ref parent, target, mesh, vMesh, materials, bt, true);
                         }
                         break;
@@ -159,11 +164,40 @@ namespace DynamicMeshCutter
                 cData.CreatedTargets[i] = nTarget;
             }
 
+            
             return cData;
         }
 
-        static void CreateMesh(ref GameObject root, ref Transform parent, MeshTarget target, Mesh mesh, VirtualMesh vMesh, Material[] materials, int bt, bool forcePhysics = false)
+        private static MonoBehaviour _mb; // The surrogate MonoBehaviour that we'll use to manage this coroutine.
+
+        public static void StartCoroutine(Material[] materials)
         {
+            //Debug.Log("Starting...");
+            foreach (var mat in materials)
+            {
+                mat.color = Color.red;
+            }
+            _mb = GameObject.FindObjectOfType<MonoBehaviour>();
+            if (_mb != null)
+            {
+                //Debug.Log("Found a MonoBehaviour.");
+                _mb.StartCoroutine(CoroutineTest(materials));
+            }
+            //else
+            //    //Debug.Log("No MonoBehaviour object was found in the scene (which should basically be impossible).");
+        }
+
+        private static IEnumerator CoroutineTest(Material[] materials)
+        {
+            yield return new WaitForSeconds(0.2f);
+            foreach (var mat in materials)
+            {
+                mat.color = Color.white;
+            }
+        }
+
+        public static void CreateMesh(ref GameObject root, ref Transform parent, MeshTarget target, Mesh mesh, VirtualMesh vMesh, Material[] materials, int bt, bool forcePhysics = false)
+        {                    
             parent = new GameObject($"{target.GameobjectRoot.name}").transform;
             parent.transform.rotation = target.transform.rotation;
             parent.transform.position = target.transform.position;
@@ -179,6 +213,9 @@ namespace DynamicMeshCutter
 
             filter.mesh = mesh;
             renderer.materials = materials;
+
+            StartCoroutine(materials);
+            //MakeRed();        
 
             Vector3 worldCenter = renderer.bounds.center;
             parent.transform.position = worldCenter;
@@ -202,6 +239,7 @@ namespace DynamicMeshCutter
                     collider.convex = true;
                 }
             }
+
         }
 
         /// <summary>
