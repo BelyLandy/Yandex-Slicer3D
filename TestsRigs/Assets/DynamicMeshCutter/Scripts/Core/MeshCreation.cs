@@ -126,7 +126,11 @@ namespace DynamicMeshCutter
 
                 var nTarget = root.GetComponent<MeshTarget>();
                 if (nTarget == null)
+                {
                     nTarget = root.AddComponent<MeshTarget>();
+                    root.GetComponent<MeshTarget>().enabled = false;
+                }
+                    
                 nTarget.GameobjectRoot = parent.gameObject;
                 nTarget.OverrideFaceMaterial = target.OverrideFaceMaterial;
                 nTarget.SeparateMeshes = target.SeparateMeshes;
@@ -168,11 +172,10 @@ namespace DynamicMeshCutter
             return cData;
         }
 
-        private static MonoBehaviour _mb; // The surrogate MonoBehaviour that we'll use to manage this coroutine.
+        private static MonoBehaviour _mb;
 
         public static void StartCoroutine(Material[] materials)
         {
-            //Debug.Log("Starting...");
             foreach (var mat in materials)
             {
                 mat.color = Color.red;
@@ -180,11 +183,8 @@ namespace DynamicMeshCutter
             _mb = GameObject.FindObjectOfType<MonoBehaviour>();
             if (_mb != null)
             {
-                //Debug.Log("Found a MonoBehaviour.");
                 _mb.StartCoroutine(CoroutineTest(materials));
             }
-            //else
-            //    //Debug.Log("No MonoBehaviour object was found in the scene (which should basically be impossible).");
         }
 
         private static IEnumerator CoroutineTest(Material[] materials)
@@ -208,8 +208,13 @@ namespace DynamicMeshCutter
             root.transform.rotation = target.transform.rotation;
             root.gameObject.tag = target.transform.tag;
 
+            //root.AddComponent<DetectObjectToSlice>();
+            root.AddComponent<DTOBJ>();
+
             var filter = root.AddComponent<MeshFilter>();
             var renderer = root.AddComponent<MeshRenderer>();
+
+            
 
             filter.mesh = mesh;
             renderer.materials = materials;

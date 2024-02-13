@@ -1,31 +1,24 @@
 using DynamicMeshCutter;
+using System.Globalization;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DetectObjectToSlice : MonoBehaviour
 {
     public static bool IsOneDetected;
     public static bool IsButtonPressed;
 
-    private void OnMouseDown()
-    {
-        IsButtonPressed = true;
-        Debug.Log("Pressed");
-    }
+    public static string SlicedObjectName;
 
-    private void OnMouseEnter()
+    private void OnMouseOver()
     {
         if (!IsOneDetected && IsButtonPressed)
         {
             gameObject.GetComponent<MeshTarget>().enabled = true;
+            SlicedObjectName = gameObject.name;
             IsOneDetected = true;
+            Debug.Log("Получил объект!");
         }
-        Debug.Log("");
-    }
-
-    private void OnMouseUp()
-    {
-        IsOneDetected = false;
-        IsButtonPressed = false;
-        Debug.Log("Unpressed");
+        Debug.Log("MouseEnter");
     }
 }
