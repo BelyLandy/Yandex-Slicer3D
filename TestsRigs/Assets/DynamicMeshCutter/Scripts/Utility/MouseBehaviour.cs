@@ -40,14 +40,14 @@ namespace DynamicMeshCutter
 
             if (Input.GetMouseButtonUp(0) && _isDragging)
             {
-                Vector3[] positions = new Vector3[LR.positionCount];
+                //Vector3[] positions = new Vector3[LR.positionCount];
 
-                LR.GetPositions(positions);
+                //LR.GetPositions(positions);
 
-                foreach (var position in positions)
-                {
-                    //Debug.Log(position);
-                }
+                //foreach (var position in positions)
+                //{
+                //    //Debug.Log(position);
+                //}
 
                 //RaycastHit[] hits;
                 //hits = Physics.RaycastAll(origin: new Vector3(positions[0].x, positions[0].y, 1), direction: new Vector3(positions[1].x, positions[1].y, 1), maxDistance: Vector3.Distance(positions[0], positions[1]));
@@ -58,8 +58,8 @@ namespace DynamicMeshCutter
 
                 Cut();
 
-                GetComponent<AudioSource>().clip = audioClips[Random.Range(0, 2)];
-                GetComponent<AudioSource>().Play();
+                //GetComponent<AudioSource>().clip = audioClips[Random.Range(0, 2)];
+                //GetComponent<AudioSource>().Play();
 
                 _isDragging = false;
 
@@ -68,8 +68,8 @@ namespace DynamicMeshCutter
 
         }
 
-        [Header("Hit Sounds")]
-        [SerializeField] private AudioClip[] audioClips;
+        //[Header("Hit Sounds")]
+        //[SerializeField] private AudioClip[] audioClips;
 
         private void Cut()
         {
@@ -99,12 +99,14 @@ namespace DynamicMeshCutter
             if (LR == null)
                 return;
 
-            if (awake)
-            {
-                LR.enabled = value;
-            }
+            //if (awake)
+            //{
+            //    LR.enabled = value;
+            //}
 
-            if (value && awake)
+            LR.enabled = value;
+
+            if (value)
             {
                 LR.positionCount = 2;
                 LR.SetPosition(0, _from);

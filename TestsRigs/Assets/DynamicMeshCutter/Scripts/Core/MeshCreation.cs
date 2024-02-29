@@ -128,7 +128,14 @@ namespace DynamicMeshCutter
                 if (nTarget == null)
                 {
                     nTarget = root.AddComponent<MeshTarget>();
-                    root.GetComponent<MeshTarget>().enabled = false;
+                    if (!PlaneBehaviour.isPlaneCutted)
+                    {
+                        root.GetComponent<MeshTarget>().enabled = false;
+                    }
+                    else
+                    {
+                        PlaneBehaviour.isPlaneCutted = false;
+                    }                                                       
                 }
                     
                 nTarget.GameobjectRoot = parent.gameObject;

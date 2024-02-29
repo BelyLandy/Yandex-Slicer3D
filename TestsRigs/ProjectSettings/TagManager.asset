@@ -13,7 +13,7 @@ TagManager:
   - UI
   - Post-processing
   - 
-  - 
+  - SecondCam
   - 
   - 
   - 
@@ -40,4 +40,31 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Sky Environment
+    uniqueID: 1938160135
+    locked: 0
+  - name: SpeedEffect
+    uniqueID: 2926691445
+    locked: 0
+  - name: Plane_back
+    uniqueID: 3874090769
+    locked: 0
+  - name: Noob
+    uniqueID: 289371773
+    locked: 0
+  - name: Plane_fwd
+    uniqueID: 410616539
+    locked: 0
+  - name: Sky
+    uniqueID: 2445800441
+    locked: 0
+  - name: Ground+mainobj
+    uniqueID: 3547945669
+    locked: 0
+  - name: Nubik
+    uniqueID: 668860873
+    locked: 0
+  - name: Zaslon
+    uniqueID: 1305977033
     locked: 0

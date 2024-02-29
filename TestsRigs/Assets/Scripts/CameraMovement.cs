@@ -98,7 +98,7 @@ namespace RootMotion
 
 		protected virtual void Update()
 		{
-			if (updateMode == UpdateMode.Update) UpdateTransform();
+            if (updateMode == UpdateMode.Update) UpdateTransform();
 		}
 
 		protected virtual void FixedUpdate()
@@ -122,7 +122,7 @@ namespace RootMotion
 			}
 		}
 
-		[SerializeField] private GameObject _gameObject;        
+		public static bool rotate;
 
         // Read the user input
         public void UpdateInput()
@@ -134,22 +134,15 @@ namespace RootMotion
 			Cursor.visible = lockCursor ? false : true;
 
 			// Should we rotate the camera?
-			bool rotate = rotateAlways || (rotateOnLeftButton && Input.GetMouseButton(0)) || (rotateOnRightButton && Input.GetMouseButton(1)) || (rotateOnMiddleButton && Input.GetMouseButton(2));
+			rotate = (rotateAlways || (rotateOnLeftButton && Input.GetMouseButton(0)) || (rotateOnRightButton && Input.GetMouseButton(1)) || (rotateOnMiddleButton && Input.GetMouseButton(2))) && !DTOBJ.IsButtonPressed;
 
 			// delta rotation
 			if (rotate)
-			{
-				//_gameObject.GetComponent<LineRenderer>().enabled = false;
-				MouseBehaviour.isAwake = false;
-				_gameObject.SetActive(false);
-
+			{			
 				x += Input.GetAxis("Mouse X") * rotationSensitivity;
 				y = ClampAngle(y - Input.GetAxis("Mouse Y") * rotationSensitivity, yMinLimit, yMaxLimit);
 			}
-			else
-			{
-                _gameObject.SetActive(true);
-            }	
+				
 
 			// Distance
 			distanceTarget = Mathf.Clamp(distanceTarget + zoomAdd, minDistance, maxDistance);
